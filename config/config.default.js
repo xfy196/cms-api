@@ -15,7 +15,15 @@ module.exports = appInfo => {
   // cookie的值
   config.keys = appInfo.name + '_1612103033046_2684';
 
-  config.middleware = ['gzip'];
+  config.middleware = ['gzip', "errorHandler"];
+  config.errorHandler = {
+    enable: true,
+    match(ctx){
+      // 这里可以设置对应规则去匹配，例如只在ios下开启
+      const reg = /iphone|ipad|ipod/i
+      return true
+    }
+  }
 
   const userConfig = {
     security: {

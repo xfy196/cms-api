@@ -20,7 +20,13 @@ class UserController extends Controller{
      */
     async create(){
         const {ctx, service} = this;
-        ctx.body = {}
+        let user = ctx.request.body
+        await service.user.create(user)
+        ctx.body = {
+            status : 200,
+            data: {},
+            message: "创建成功"
+        }
     }
 
     /**
