@@ -9,8 +9,14 @@ class BaseController extends Controller {
             ctx,
             service
         } = this
-        let list = await service[this.entity].list()
-        this.success(200, {}, "查询成功")
+        const {
+            pageNum,
+            pageSize,
+            ...where
+        } = ctx.query
+        let list = await service[this.entity].list(isNaN(pageNum) ? 1 : parseInt(pageNum), isNaN(pageSize) ? 3 : parseInt(pageSize), where)
+
+        this.success(200, list, "查询成功")
     }
 
     /**
@@ -48,7 +54,7 @@ class BaseController extends Controller {
             id
         } = ctx.params
         let result = await service[this.entity].getUserById(id)
-        this.success(200, result, "查询成功")
+        this.success(200, result ? result : [], "查询成功")
     }
 
     /**
@@ -100,7 +106,7 @@ class BaseController extends Controller {
     success(status = 200, data = {}, message = "请求成功") {
         this.ctx.body = {
             status,
-            data,
+            data: data,
             message
         }
     }
@@ -108,7 +114,7 @@ class BaseController extends Controller {
     error(status = 500, data = {}, message = "网络错误请重试") {
         this.ctx.body = {
             status,
-            data,
+            data: data,
             message
         }
     }

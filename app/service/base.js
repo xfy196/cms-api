@@ -6,8 +6,15 @@ class BaseService extends Service {
     /**
      * 获取所有的实体
      */
-    async list() {
-        return await this.app.mysql.select(this.entity_table)
+    async list(pageNum, pageSize, where) {
+        return await this.app.mysql.select(this.entity_table, {
+            where,
+            order: [
+                ["id", "asc"]
+            ],
+            offset: (pageNum - 1) * pageSize,
+            limit: pageSize
+        })
     }
     /**
      * 通过用户id获取的信息
@@ -24,14 +31,20 @@ class BaseService extends Service {
      * @param {*} user 实体参数
      */
     async create(entity) {
-        return await this.app.mysql.insert(this.entity_table, entity)
+        let {
+            affectRows
+        } = await this.app.mysql.insert(this.entity_table, entity)
+        return affectRows > 0
     }
     /**
      * 更新用户信息
      * @param {*} user 用户实体参数
      */
     async update(entity) {
-        return await this.app.mysql.update(this.entity_table, entity)
+        let {
+            affectRows
+        } = await this.app.mysql.update(this.entity_table, entity)
+        return affectRows > 0
     }
 
     /**
@@ -39,9 +52,12 @@ class BaseService extends Service {
      * @param {*} id 唯一id
      */
     async destroy(id) {
-        return await this.app.mysql.delete(this.entity_table, {
+        let {
+            affectRows
+        } = await this.app.mysql.delete(this.entity_table, {
             id
         })
+        return affectRows > 0
     }
 }
 module.exports = BaseService
