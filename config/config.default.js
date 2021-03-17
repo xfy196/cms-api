@@ -39,7 +39,7 @@ module.exports = appInfo => {
       }
     },
     logger: {
-      dir: "../logs/cms-api/"
+      dir: "./logs/cms-api/"
     },
     // 配置需要的中间件，数组顺序即为中间件的加载顺序
     gzip: {

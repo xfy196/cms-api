@@ -5,6 +5,7 @@ class RoleController extends BaseController {
 
 		this.entity = "role"
 	}
+	
 }
 
 module.exports = RoleController

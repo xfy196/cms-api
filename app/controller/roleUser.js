@@ -5,5 +5,6 @@ class RoleUserController extends BaseController {
 
 		this.entity = "roleUser"
 	}
+	
 }
 module.exports = RoleUserController

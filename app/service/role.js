@@ -6,5 +6,6 @@ class RoleService extends BaseService {
 
 		this.entity_table = "cms_role";
 	}
+	
 }
 module.exports = RoleService
