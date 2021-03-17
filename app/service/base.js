@@ -31,20 +31,16 @@ class BaseService extends Service {
      * @param {*} user 实体参数
      */
     async create(entity) {
-        let {
-            affectRows
-        } = await this.app.mysql.insert(this.entity_table, entity)
-        return affectRows > 0
+        let result = await this.app.mysql.insert(this.entity_table, entity)
+        return result
     }
     /**
      * 更新用户信息
      * @param {*} user 用户实体参数
      */
     async update(entity) {
-        let {
-            affectRows
-        } = await this.app.mysql.update(this.entity_table, entity)
-        return affectRows > 0
+        let result = await this.app.mysql.update(this.entity_table, entity)
+        return result
     }
 
     /**
@@ -52,12 +48,10 @@ class BaseService extends Service {
      * @param {*} id 唯一id
      */
     async destroy(id) {
-        let {
-            affectRows
-        } = await this.app.mysql.delete(this.entity_table, {
+        let result = await this.app.mysql.delete(this.entity_table, {
             id
         })
-        return affectRows > 0
+        return result
     }
 }
 module.exports = BaseService

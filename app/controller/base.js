@@ -1,5 +1,5 @@
 const {
-    Controller
+    Controller,
 } = require('egg')
 class BaseController extends Controller {
 
@@ -67,12 +67,12 @@ class BaseController extends Controller {
         } = this;
         let id = ctx.params.id
         let entity = ctx.request.body
-        user.id = id
+        entity.id = id
         let {
             affectedRows
         } = await service[this.entity].update(entity)
 
-        affectedRows === 1 ? this.success(s200, {}, "删除成功") : this.error(500, {}, "删除失败")
+        affectedRows === 1 ? this.success(200, {}, "更新成功") : this.error(500, {}, "更新失败")
 
     }
 
