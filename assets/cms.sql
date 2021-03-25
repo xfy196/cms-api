@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 01/02/2021 18:23:47
+ Date: 25/03/2021 21:31:38
 */
 
 SET NAMES utf8mb4;
@@ -26,9 +26,18 @@ CREATE TABLE `cms_resource` (
   `name` varchar(255) COLLATE utf8mb4_bin NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
-  CONSTRAINT `cms_resource_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `cms_resource` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  KEY `parent_id` (`parent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Records of cms_resource
+-- ----------------------------
+BEGIN;
+INSERT INTO `cms_resource` VALUES (1, '权限管理', 0);
+INSERT INTO `cms_resource` VALUES (2, '角色管理', 1);
+INSERT INTO `cms_resource` VALUES (3, '资源管理', 1);
+INSERT INTO `cms_resource` VALUES (4, '用户管理', 1);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for cms_role
@@ -52,7 +61,15 @@ CREATE TABLE `cms_user` (
   `phone` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `gender` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Records of cms_user
+-- ----------------------------
+BEGIN;
+INSERT INTO `cms_user` VALUES (2, '小小荧', '123456', 'xfy196@outlook,com', '15212186290', '男');
+INSERT INTO `cms_user` VALUES (3, '小小荧', '123456', 'xfy196@outlook,com', '15212186290', '男');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for role_resource
