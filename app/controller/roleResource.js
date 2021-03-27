@@ -11,7 +11,7 @@ class RoleResourceController extends BaseController {
 	async setRoleResource(){
 		const {ctx, service} = this;
 		const body = ctx.request.body
-		let result = await service.roleResource.setRoleResource(body)
+		let result = await service.roleUser.setRoleUser(body)
 		this.success(200, {}, result ? "授权成功": "授权失败")
 	}
 }

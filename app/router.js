@@ -15,4 +15,5 @@ module.exports = app => {
 	router.resources("resource", "/api/resource", controller.resource)
 	router.get("/api/getResource", controller.resource.getResource)
 	router.post("/api/setRoleResource", controller.roleResource.setRoleResource)
+	router.post("/api/setUserRole", controller.roleUser.setUserRole)
 };

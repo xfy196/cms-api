@@ -13,19 +13,22 @@ class RoleResourceService extends BaseService {
 	 * 设置权限
 	 */
 	async setRoleResource({ role_id, resource_ids }) {
+		const { app } = this
+		const conn = await app.mysql.beginTransaction()
 		try {
-			const { app } = this
 			await app.mysql.query("DELETE FROM role_resource WHERE role_id=?", [role_id])
 			// 循环设置新的权限
 			for (let i = 0; i < resource_ids.length; i++) {
-				let a = await app.mysql.insert("role_resource", {
+				await app.mysql.insert("role_resource", {
 					role_id,
 					resource_id: resource_ids[i]
 				})
 			}
+			await conn.commit()
 			return true
 		} catch (error) {
-			return false
+			await conn.rollBack()
+			return error
 		}
 	}
 }
