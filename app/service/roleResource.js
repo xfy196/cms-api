@@ -27,7 +27,7 @@ class RoleResourceService extends BaseService {
 			await conn.commit()
 			return true
 		} catch (error) {
-			await conn.rollBack()
+			await conn.rollback()
 			return error
 		}
 	}

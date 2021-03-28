@@ -15,7 +15,12 @@ module.exports = appInfo => {
   // cookie的值
   config.keys = appInfo.name + '_1612103033046_2684';
 
-  config.middleware = ['gzip', "errorHandler"];
+  config.middleware = ['gzip', "errorHandler", "auth"];
+  config.auth = {
+    authUrls: [
+      "/api/user"
+    ]
+  }
   config.errorHandler = {
     enable: true,
     match(ctx){
@@ -27,8 +32,10 @@ module.exports = appInfo => {
 
   const userConfig = {
     security: {
-      csrf: false
+      csrf: false,
+      domainWhiteList: ["http://localhost:8000"]
     },
+    jwtSecret: "xxy",
     mysql: {
       client: {
         host: "localhost",
