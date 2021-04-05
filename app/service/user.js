@@ -63,13 +63,14 @@ class UserService extends BaseService {
         .createHash("md5")
         .update(user.password)
         .digest("hex");
+        user.address = JSON.stringify(user.address)
       let result = await app.mysql.insert("cms_user", user);
       await conn.commit();
       return result;
     } catch (error) {
-      await conn.rollaback();
+      await conn.rollback();
       return {
-        msg: "注册失败",
+        msg: error.toString(),
       };
     }
   }
@@ -105,7 +106,7 @@ class UserService extends BaseService {
     } catch (error) {
       return {
         status: false,
-        msg: "服务端错误",
+        msg: error.toString(),
       };
     }
   }

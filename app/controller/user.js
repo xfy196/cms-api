@@ -1,6 +1,6 @@
 const BaseController = require("./base.js");
 const svgCaptcha = require("svg-captcha");
-const {sign, verify} = require("jsonwebtoken")
+const { sign, verify } = require("jsonwebtoken");
 class UserController extends BaseController {
   constructor(...args) {
     super(...args);
@@ -15,7 +15,7 @@ class UserController extends BaseController {
     const { ctx } = this;
     const captcha = svgCaptcha.create();
     // 将文本信息存储在当前会话之中
-    ctx.session.capatcha = captcha.text;
+    ctx.session.captcha = captcha.text;
     ctx.set("Content-Type", "image/svg+xml");
     ctx.body = captcha.data;
   }
@@ -25,10 +25,10 @@ class UserController extends BaseController {
   async checkCaptcha() {
     const { ctx } = this;
     let { captcha } = ctx.request.body;
-    if (captcha === ctx.session.captcha) {
+    if (captcha.toLowerCase() === ctx.session.captcha.toLowerCase()) {
       this.success(200, {}, "验证成功");
     } else {
-      this.success(200, {}, "验证失败");
+      this.success(500, {}, "验证码错误");
     }
   }
   /**
@@ -40,8 +40,8 @@ class UserController extends BaseController {
       const loginInfo = ctx.request.body;
       let result = await service.user.signIn(loginInfo);
       if (result.status) {
-          let u = JSON.parse(JSON.stringify(result.data))
-          delete u.password
+        let u = JSON.parse(JSON.stringify(result.data));
+        delete u.password;
         this.success(200, sign(u, this.config.jwtSecret), result.msg);
       } else {
         this.error(500, {}, result.msg);
@@ -71,13 +71,13 @@ class UserController extends BaseController {
           {
             id: result.insertId,
           },
-          "创建成功"
+          "注册成功"
         );
       } else {
         this.error(500, {}, result.msg);
       }
     } catch (error) {
-      this.error();
+      this.error(500, {}, error);
     }
   }
 }
