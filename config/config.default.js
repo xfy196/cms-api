@@ -17,7 +17,7 @@ module.exports = (appInfo) => {
 
   config.middleware = ["gzip", "errorHandler", "auth"];
   config.auth = {
-    authUrls: ["/api/user"],
+    authUrls: ["/api/user", "/api/getUserInfo"],
   };
   config.errorHandler = {
     enable: true,

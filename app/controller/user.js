@@ -80,5 +80,17 @@ class UserController extends BaseController {
       this.error(500, {}, error);
     }
   }
+
+  /**
+   * 获取用户的信息
+   */
+  async getUserInfoByToken(){
+    try {
+      const {ctx} = this
+      this.success(200, ctx.session.user, "获取成功")
+    } catch (error) {
+      this.error(500, {}, error)
+    }
+  }
 }
 module.exports = UserController;

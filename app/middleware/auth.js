@@ -16,7 +16,7 @@ module.exports = (options, app) => {
     if (authUrls.includes(ctx.url.split("?")[0])) {
       // 验证是否进行登录
       // 判断请求头中是否存在token
-      const authorization = ctx.get("authorization");
+      const authorization = ctx.get("Authorization");
       if (authorization) {
         try {
             // 把用户信息放入到session之后提供给后面的操作使用

@@ -23,4 +23,5 @@ module.exports = app => {
 	router.post("/api/signIn", controller.user.signIn)
 	router.post("/api/signOut", controller.user.signOut)
 	router.post("/api/signUp", controller.user.signUp)
+	router.post("/api/getUserInfo", controller.user.getUserInfoByToken)
 };
