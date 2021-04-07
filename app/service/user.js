@@ -91,11 +91,13 @@ class UserService extends BaseService {
         ]
       );
       if (result.length > 0) {
+        let user = result[0]
+        user.sessionTime = Date.now() + 1000 * 60 * 60 * 24 * 2
         // 验证码密码是否错误
         return {
           status: true,
           msg: "登录成功",
-          data: result[0]
+          data: user
         };
       } else {
         return {

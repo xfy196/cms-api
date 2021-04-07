@@ -19,10 +19,18 @@ module.exports = (options, app) => {
       const authorization = ctx.get("Authorization");
       if (authorization) {
         try {
-            // 把用户信息放入到session之后提供给后面的操作使用
+          // 把用户信息放入到session之后提供给后面的操作使用
           let user = await verifyToken(authorization, app.config.jwtSecret);
-          ctx.session.user = user;
-          await next();
+          if (user.sessionTime < Date.now()) {
+            ctx.status = 401;
+            ctx.body = {
+              code: 401,
+              msg: "token已过期",
+            };
+          } else {
+            ctx.session.user = user;
+            await next();
+          }
         } catch (error) {
           ctx.status = 401;
           ctx.body = {
