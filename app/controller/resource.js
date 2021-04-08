@@ -10,8 +10,8 @@ class ResourceController extends BaseController{
 	 */
 	async getResource(){
 		const {app, ctx, service}  = this
-        ctx.logger.debug("dasda")
-		let result = await service.resource.getResource()
+		let userId = ctx.query.id
+		let result = await service.resource.getResource(userId)
 		this.success(200, result, "查询成功")
 	}
 }

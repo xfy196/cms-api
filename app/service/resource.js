@@ -9,9 +9,13 @@ class ResourceService extends BaseService {
      * @returns 
      * 获取系统菜单树的资源
      */
-    async getResource() {
+    async getResource(userId) {
         const { app } = this;
-        const resources = await app.mysql.select("cms_resource")
+        const resources = await app.mysql.query(`
+        SELECT cms_resource.* FROM cms_user INNER JOIN role_user ON cms_user.id = role_user.user_id
+INNER JOIN role_resource ON role_user.role_id = role_resource.role_id
+INNER JOIN cms_resource ON role_resource.resource_id = cms_resource.id
+WHERE cms_user.id = ${userId}`)
         // 把得到的结果进行树级菜单处理
         let map = {}
         let sourceMenus = []

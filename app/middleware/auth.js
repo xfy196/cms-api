@@ -25,7 +25,7 @@ module.exports = (options, app) => {
             ctx.status = 401;
             ctx.body = {
               code: 401,
-              msg: "token已过期",
+              message: "token已过期",
             };
           } else {
             ctx.session.user = user;
@@ -35,14 +35,14 @@ module.exports = (options, app) => {
           ctx.status = 401;
           ctx.body = {
             code: 401,
-            msg: "token验证失败",
+            message: "token验证失败",
           };
         }
       } else {
         ctx.status = 401;
         ctx.body = {
           code: 401,
-          msg: "没有token",
+          message: "没有token",
         };
       }
     } else {
